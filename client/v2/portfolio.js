@@ -64,6 +64,8 @@ const fetchProducts = async (page = 1, size = 12) => {
   }
 };
 */
+
+
 const fetchProducts = async (page = 1, size = 12, brand = null) => {
   try {
     let url = `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`;
@@ -76,15 +78,16 @@ const fetchProducts = async (page = 1, size = 12, brand = null) => {
 
     if (body.success !== true) {
       console.error(body);
-      return {currentProducts, currentPagination};
+      return {};
     }
 
     return body.data;
   } catch (error) {
     console.error(error);
-    return {currentProducts, currentPagination};
+    return {};
   }
 };
+
 
 
 
@@ -95,7 +98,7 @@ const fetchProducts = async (page = 1, size = 12, brand = null) => {
  * Render list of products
  * @param  {Array} products
  */
-
+/* old one 
 const renderProducts = products => {
   const fragment = document.createDocumentFragment();
   const div = document.createElement('div');
@@ -116,6 +119,30 @@ const renderProducts = products => {
   sectionProducts.innerHTML = '<h2>Products</h2>';
   sectionProducts.appendChild(fragment);
 };
+*/
+
+const renderProducts = (products, brand = null) => {
+  const filteredProducts = brand ? products.filter(product => product.brand === brand) : products;
+  const fragment = document.createDocumentFragment();
+  const div = document.createElement('div');
+  const template = filteredProducts
+    .map(product => {
+      return `
+      <div class="product" id=${product.uuid}>
+        <span>${product.brand}</span>
+        <a href="${product.link}">${product.name}</a>
+        <span>${product.price}</span>
+      </div>
+    `;
+    })
+    .join('');
+
+  div.innerHTML = template;
+  fragment.appendChild(div);
+  sectionProducts.innerHTML = '<h2>Products</h2>';
+  sectionProducts.appendChild(fragment);
+};
+
 
 
 
@@ -191,14 +218,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   setCurrentProducts(products);
   render(currentProducts, currentPagination);
 });
-
-selectPage.addEventListener('change', async (event) => {
-  const products = await fetchProducts(parseInt(event.target.value), currentPagination.size);
-
-  setCurrentProducts(products);
-  render(currentProducts, currentPagination);
-});
-
 /*
 document.addEventListener('DOMContentLoaded', async () => {
   const products = await fetchProducts();
@@ -207,3 +226,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   render(currentProducts, currentPagination);
 });
 */
+selectPage.addEventListener('change', async (event) => {
+  const products = await fetchProducts(parseInt(event.target.value), currentPagination.size);
+
+  setCurrentProducts(products);
+  render(currentProducts, currentPagination);
+});
+
+//to select by brand
+const selectBrand = document.querySelector('#brand-select');
+
+selectBrand.addEventListener('change', async () => {
+  const selectedBrand = selectBrand.value;
+
+  const {result, meta} = await fetchProducts(1, 12, selectedBrand);
+  setCurrentProducts({result, meta});
+  render(result, meta);
+});
