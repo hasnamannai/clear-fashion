@@ -65,7 +65,7 @@ const fetchProducts = async (page = 1, size = 12) => {
 };
 */
 
-
+/*
 const fetchProducts = async (page = 1, size = 12, brand = null) => {
   try {
     let url = `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`;
@@ -87,8 +87,32 @@ const fetchProducts = async (page = 1, size = 12, brand = null) => {
     return {};
   }
 };
+*/
+// browse product by brand and recent product 
+const fetchProducts = async (page = 1, size = 12, brand = null, startDate = null, endDate = null) => {
+  try {
+    let url = `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`;
+    if (brand) {
+      url += `&brand=${brand}`;
+    }
+    if (startDate && endDate) {
+      url += `&start_date=${startDate}&end_date=${endDate}`;
+    }
 
+    const response = await fetch(url);
+    const body = await response.json();
 
+    if (body.success !== true) {
+      console.error(body);
+      return {};
+    }
+
+    return body.data;
+  } catch (error) {
+    console.error(error);
+    return {};
+  }
+};
 
 
 
@@ -120,7 +144,7 @@ const renderProducts = products => {
   sectionProducts.appendChild(fragment);
 };
 */
-
+/*
 const renderProducts = (products, brand = null) => {
   const filteredProducts = brand ? products.filter(product => product.brand === brand) : products;
   const fragment = document.createDocumentFragment();
@@ -142,7 +166,38 @@ const renderProducts = (products, brand = null) => {
   sectionProducts.innerHTML = '<h2>Products</h2>';
   sectionProducts.appendChild(fragment);
 };
+*/
+const renderProducts = (products, brand = null, startDate = null, endDate = null) => {
+  let filteredProducts = products;
+  if (brand) {
+    filteredProducts = products.filter(product => product.brand === brand);
+  }
+  if (startDate && endDate) {
+    filteredProducts = filteredProducts.filter(product => {
+      const releaseDate = new Date(product.releaseDate);
+      return releaseDate >= startDate && releaseDate <= endDate;
+    });
+  }
 
+  const fragment = document.createDocumentFragment();
+  const div = document.createElement('div');
+  const template = filteredProducts
+    .map(product => {
+      return `
+      <div class="product" id=${product.uuid}>
+        <span>${product.brand}</span>
+        <a href="${product.link}">${product.name}</a>
+        <span>${product.price}</span>
+      </div>
+    `;
+    })
+    .join('');
+
+  div.innerHTML = template;
+  fragment.appendChild(div);
+  sectionProducts.innerHTML = '<h2>Products</h2>';
+  sectionProducts.appendChild(fragment);
+};
 
 
 
