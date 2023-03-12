@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-6BWLs6GdU3+nq3wTyKbKkbyBc8LZT9H9iK6fvTJvzTxcT2vpjV7wU6QrU6r8u6LlRXj9bhJGcYlV7noA6n5D5w==" crossorigin="anonymous" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>👕 Clear Fahion | Environmentally & human-friendly clothes</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1>Clear fashion</h1>
+    <div class="title-container">
+      <h1>Clear fashion</h1>
+      <i class="fas fa-tshirt"></i>
+    </div>
+    <nav>
     <section id="options">
       <div id="show">
         <label for="show-select">Show:</label>
@@ -38,38 +44,44 @@
         </select>
       </div>
     </section>
-    <section id="indicators">
-      <h2>Indicators</h2>
-      <div>
-        <span>Number of products</span>
-        <span id="nbProducts">0</span>
-      </div>
-      <div>
-        <span>Number of brands</span>
-        <span id="nbBrands">0</span>
-      </div>
-      <div>
-        <span>Number of new products</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>p50 price value</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>p90 price value</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>p95 price value</span>
-        <span>0</span>
-      </div>
-      <div>
-        <span>Last released date</span>
-        <span>2020-01-01</span>
-      </div>
-    </section>
+  </nav>
+  <div class="indicators-container">
+    
+    <img src='https://cache.marieclaire.fr/data/photo/w1200_h630_c17/6g/fashion-week.jpg' alt="Photo" class="photo">
+      <section id="indicators">
+        <h2>Indicators</h2>
+        <div>
+          <span>Number of products</span>
+          <span id="nbProducts">0</span>
+        </div>
+        <div>
+          <span>Number of brands</span>
+          <span id="nbBrands">0</span>
+        </div>
+        <div>
+          <span>Number of new products</span>
+          <span>0</span>
+        </div>
+        <div>
+          <span>p50 price value</span>
+          <span>0</span>
+        </div>
+        <div>
+          <span>p90 price value</span>
+          <span>0</span>
+        </div>
+        <div>
+          <span>p95 price value</span>
+          <span>0</span>
+        </div>
+        <div>
+          <span>Last released date</span>
+          <span>2020-01-01</span>
+        </div>
+      </section>
+  </div>  
     <section id="products"></section>
     <script type="text/javascript" charset="UTF-8" src="portfolio.js"></script>
   </body>
 </html>
+
