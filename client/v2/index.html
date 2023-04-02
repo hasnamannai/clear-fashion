@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +10,7 @@
 <body>
     <header>
         <h1>Clear Fashion Products</h1>
+        <img class="photo" src="https://cache.marieclaire.fr/data/photo/w1200_h630_c17/6g/fashion-week.jpg" alt="My Image">
     </header>
     <main>
         <section class="filters">
@@ -26,6 +25,9 @@
                 <option value="asc">Lowest to Highest</option>
                 <option value="desc">Highest to Lowest</option>
             </select>
+            <label for="date">Date of Release:</label>
+            <input type="date" id="date">
+            <button id="search">Search</button>
         </section>
 
         <section class="product-list">

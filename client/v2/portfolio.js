@@ -302,10 +302,10 @@
 const API_URL = "https://clear-fashion-jade.vercel.app";
 const productList = document.querySelector(".product-list");
 const brandFilter = document.getElementById("brand-filter");
-const sortByPrice = document.getElementById("sort-by-price");
+//const sortByPrice = document.getElementById("sort-by-price");
 
 async function fetchBrands() {
-    const response = await fetch(`${API_URL}/brands`);
+    const response = await fetch(`${API_URL}/products/brands`);
     const brands = await response.json();
     brands.forEach(brand => {
         const option = document.createElement("option");
@@ -345,10 +345,35 @@ const sort = sortByPrice.value;
 fetchProducts(brand, sort);
 }
 
+
 brandFilter.addEventListener("change", handleFilterChange);
-sortByPrice.addEventListener("change", handleFilterChange);
+//sortByPrice.addEventListener("change", handleFilterChange);
 
 fetchBrands();
 fetchProducts();
+
+//filter by price
+const sortByPrice = document.getElementById('sort-by-price');
+sortByPrice.addEventListener('change', async () => {
+  const priceOrder = sortByPrice.value;
+  const response = await fetch(`https://clear-fashion-jade.vercel.app/products/search?price=${price}`);
+  const products = await response.json();
+  const productContainer = document.querySelector('.product-list');
+  productContainer.innerHTML = '';
+  products.forEach(product => {
+    const productDiv = document.createElement('div');
+    productDiv.classList.add('product');
+    productDiv.innerHTML = `
+      <img src="${product.img}" alt="${product.title}">
+      <h2>${product.title}</h2>
+      <p>${product.brand_name}</p>
+      <p>${product.price} €</p>
+      <a href="${product.link}" target="_blank">Buy</a>
+    `;
+    productContainer.appendChild(productDiv);
+  });
+});
+
+
 
 

@@ -14,7 +14,7 @@ mongoose.connect('mongodb+srv://hasna:Univers.1@devapi.uggjwm8.mongodb.net/?retr
 .catch((err) => console.log(err));
 
 // Read the JSON file
-const products = require('./data/products.json');
+const products = require('./data/products2.json');
 
 // Loop through each product and add to the database
 products.forEach(async (product) => {
