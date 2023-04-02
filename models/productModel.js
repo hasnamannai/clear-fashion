@@ -7,7 +7,7 @@ const productSchema= mongoose.Schema(
         },
         link:{
             type: String,
-            required:false,
+            required:true,
         },
         img:{
             type:String,
@@ -22,10 +22,12 @@ const productSchema= mongoose.Schema(
             type : Number,
             required:true
         },
+        
     },
     {timestamps: true}
 )
 
-const Product =mongoose.model('Product',productSchema);
+//const Product =mongoose.model('Product',productSchema);
+module.exports = mongoose.models['Product'] || mongoose.model('Product', productSchema)
 
-module.exports = Product;
+//module.exports = Product;

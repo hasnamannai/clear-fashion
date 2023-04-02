@@ -1,5 +1,6 @@
 // Import Mongoose
 const mongoose = require('mongoose');
+const server = require('./server.js')
 
 // Import Product model
 const Product = require('./models/productModel');
@@ -13,7 +14,7 @@ mongoose.connect('mongodb+srv://hasna:Univers.1@devapi.uggjwm8.mongodb.net/?retr
 .catch((err) => console.log(err));
 
 // Read the JSON file
-const products = require('./cotele.json');
+const products = require('./data/products.json');
 
 // Loop through each product and add to the database
 products.forEach(async (product) => {

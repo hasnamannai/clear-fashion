@@ -140,7 +140,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const Product = require('./models/productModel');
+/*const Product = require('./models/productModel');*/
 
 const app = express();
 
@@ -150,18 +150,18 @@ mongoose.connect('mongodb+srv://hasna:Univers.1@devapi.uggjwm8.mongodb.net/?retr
   .catch(error => console.error(error));
 
 // Define the Product schema
-// const productSchema = new mongoose.Schema({
-//   brand_name: { type: String, required: true },
-//   link: { type: String, required: false },
-//   img: { type: String, required: true },
-//   title: { type: String, required: true },
-//   price: { type: Number, required: true },
-// }, {
-//   timestamps: true,
-// });
+ const productSchema = new mongoose.Schema({
+   brand_name: { type: String, required: true },
+   link: { type: String, required: false },
+   img: { type: String, required: true },
+   title: { type: String, required: true },
+   price: { type: Number, required: true },
+ }, {
+   timestamps: true,
+ });
 
 // Create the Product model
-//const Product = mongoose.model('Product', productSchema);
+const Product = mongoose.model('Product', productSchema);
 
 app.use(express.json());
 app.use(cors());
@@ -255,10 +255,6 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
-
-
-
-
 app.get('/products/brand/:brand', async (req, res) => {
   try {
     const { brand } = req.params;
@@ -275,7 +271,21 @@ app.get('/products/brand/:brand', async (req, res) => {
   }
 });
 
-
-
+//delete all products
+/*app.delete('/products', async(req, res)=>{
+  try{
+      const products = await Product.deleteMany({});
+      if(!products.deletedCount){
+          return res.status(404).json({message: "cannot find any products"});
+      }
+      res.status(200).json({message: "all products deleted successfully"});
+  }catch(error){
+      res.status(500).json({ message: error.message });
+  }
+})
+*/
 // Start the server
 app.listen(process.env.PORT || 3000, () => console.log(`Server started on port ${process.env.PORT || 3000}`));
+
+
+//module.exports = app;
