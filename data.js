@@ -5,7 +5,7 @@ const fs = require("fs");
 const url1 = 'https://www.dedicatedbrand.com/en/men/t-shirts';
 const products1 = [];
 
-async function getProducts(pageUrl) {
+async function getProducts1(pageUrl) {
   try {
     const response = await axios.get(pageUrl || url1);
     const $ = cheerio.load(response.data);
@@ -27,11 +27,11 @@ async function getProducts(pageUrl) {
 
     const nextPageUrl = $(".next a").attr("href");
     if (nextPageUrl) {
-      const nextPage = url + nextPageUrl;
+      const nextPage = url1 + nextPageUrl;
       await getProducts(nextPage);
     }
 
-    fs.writeFile('dedicated.json', JSON.stringify(products), (err) => {
+    fs.writeFile('dedicated.json', JSON.stringify(products1), (err) => {
       if (err) {
         console.log(err);
       } else {
@@ -45,14 +45,14 @@ async function getProducts(pageUrl) {
   }
 }
 
-getProducts();
+getProducts1();
 
 //  //address.paris
    const url2='https://adresse.paris/630-toute-la-collection'
-   const baseUrl= ""
+   //const baseUrl= ""
    const products2=[]
 
-   async function getProducts(){
+   async function getProducts2(){
      try{
        const response= await axios.get(url2);
        const $= cheerio.load(response.data)
@@ -72,12 +72,12 @@ getProducts();
 
            products2.push({brand_name,link,img,title,price})
        });
-        console.log(products);
+        console.log(products2);
       if ($(".next a").length>0){
-                  next_page=url +$(".next a").attr("href");
+                  next_page=url2 +$(".next a").attr("href");
                    getProducts(next_page);
                }
-      fs.writeFile('address.json', JSON.stringify(products),(err) => {
+      fs.writeFile('address.json', JSON.stringify(products2),(err) => {
       if (err) {
         console.log(err)
       } else {
@@ -96,7 +96,7 @@ getProducts();
 
    }
 
-   getProducts();
+   getProducts2();
 
 
 //loom
@@ -143,12 +143,11 @@ getProducts();
 
 
 //coletel paris
-  
 
   const url3='https://coteleparis.com/collections/tous-nos-produits'
   const products3=[]
 
-   async function getProducts(){
+   async function getProducts3(){
      try{
        const response= await axios.get(url3);
        const $= cheerio.load(response.data)
@@ -168,10 +167,10 @@ getProducts();
            products3.push({brand_name,link,img,title,price})
        });
        if ($(".next a").length>0){
-           next_page=url +$(".next a").attr("href");
-           getProducts(next_page);
+           next_page=url3 +$(".next a").attr("href");
+           getProducts3(next_page);
        }
-          fs.writeFile('cotele.json', JSON.stringify(products),(err) => {
+          fs.writeFile('cotele.json', JSON.stringify(products3),(err) => {
               if (err) {
                   console.log(err)
               } else {
@@ -188,4 +187,4 @@ getProducts();
 
    }
 
-   getProducts();
+   getProducts3();
